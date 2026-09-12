@@ -84,10 +84,10 @@
 }
 
 .archive-app { min-height: 100dvh; width: 100%; background: var(--background); color: var(--foreground); padding: env(safe-area-inset-top) 0; }
-.archive-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 0 12px; max-width: none; margin: 0; }
+.archive-header { display: flex; align-items: center; justify-content: space-between; width: 100vw; padding: 18px 0 12px; max-width: none; margin: 0 0 0 calc(50% - 50vw); }
 .archive-header h1 { margin: 0; font-size: 18px; font-weight: 760; letter-spacing: .04em; }
-.archive-header select { border: 0; background: transparent; color: var(--foreground); font-size: 15px; font-weight: 650; padding: 7px 22px 7px 8px; text-align: right; }
-.archive-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 0 0 10px; max-width: none; margin: 0; border-bottom: 1px solid var(--border); }
+.archive-header select { border: 0; background: transparent; color: var(--foreground); font-size: 15px; font-weight: 650; padding: 7px 0; text-align: right; }
+.archive-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; width: 100vw; padding: 0 0 10px; max-width: none; margin: 0 0 0 calc(50% - 50vw); border-bottom: 1px solid var(--border); }
 .archive-tabs button { min-width: 0; border: 0; background: transparent; color: #8a8a8f; display: flex; min-height: 54px; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border-radius: 10px; cursor: pointer; transition: background .18s var(--ease-out), color .18s var(--ease-out); }
 .archive-tabs button span { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; }
 .archive-tabs button strong { font-size: 12px; font-weight: 520; }
