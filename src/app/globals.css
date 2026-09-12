@@ -4,200 +4,99 @@
 
 @custom-variant dark (&:is(.dark *));
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: var(--background);
-  color: var(--foreground);
-}
-
-body {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-@theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
-  /* Real beziers behind the easing utilities — see the :root block below. */
-  --ease-out: var(--ease-out);
-  --ease-in-out: var(--ease-in-out);
-  --ease-in: var(--ease-in);
-  --ease-out-expo: var(--ease-out-expo);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-/* ─── THE TOKEN BLOCK ─────────────────────────────────────────────────────────
-   This is the single place colours, radius and fonts are defined, and the block the
-   design skill rewrites with the committed palette (or the chosen look's palette).
-   Every shadcn component in src/components/ui reads these names, so keep the NAMES
-   and change the VALUES. Dark mode re-tunes the same names in `.dark` below — never
-   a naive inversion.
-
-   NEVER add a second `:root` block: whichever comes last in this file wins, so a
-   duplicate silently overrides the design you just committed.
-
-   FONTS: `next/font/google` is banned — the build sandbox has no Google egress, so the
-   fetch hangs at compile and the preview renders blank. Carry personality with weight,
-   size and tracking, or self-host a .woff2 via `next/font/local`.
-   ──────────────────────────────────────────────────────────────────────────── */
 :root {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  /* Motion curves. CSS's own `ease-out`/`ease-in-out` keywords are weak, mushy
-     curves and are the usual reason motion feels cheap — these replace them, so
-     the `ease-out` / `ease-in-out` / `ease-in` Tailwind utilities emit real
-     beziers. Same names in every project; retune the values, not the names.
-       ease-out      quiet product default — no overshoot
-       ease-in-out   symmetrical, for anything that reverses
-       ease-in       EXITS only (an entrance that starts slow feels broken)
-       ease-out-expo marketing/brand surfaces — fast out, long tail */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #007aff;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2f7;
+  --secondary-foreground: #111111;
+  --muted: #f2f2f7;
+  --muted-foreground: #6b6b70;
+  --accent: #eaf3ff;
+  --accent-foreground: #0066d6;
+  --destructive: #ff3b30;
+  --border: #e5e5ea;
+  --input: #e5e5ea;
+  --ring: #007aff;
+  --radius: 0.75rem;
   --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #f2f2f7;
+  --sidebar-foreground: #111111;
+  --sidebar-primary: #007aff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eaf3ff;
+  --sidebar-accent-foreground: #0066d6;
+  --sidebar-border: #e5e5ea;
+  --sidebar-ring: #007aff;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
+.dark { --background: #ffffff; --foreground: #111111; }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+  * { @apply border-border outline-ring/50; }
+  html { @apply font-sans; background: var(--background); }
+  body { @apply bg-background text-foreground; margin: 0; min-width: 320px; }
+  button, input, select { font: inherit; }
 }
+
+.archive-app { min-height: 100dvh; background: var(--background); color: var(--foreground); padding: env(safe-area-inset-top) 0 calc(96px + env(safe-area-inset-bottom)); }
+.archive-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 12px; max-width: 760px; margin: 0 auto; }
+.archive-header h1 { margin: 0; font-size: 18px; font-weight: 760; letter-spacing: .04em; }
+.archive-header select { border: 0; background: transparent; color: var(--foreground); font-size: 15px; font-weight: 650; padding: 7px 22px 7px 8px; text-align: right; }
+.archive-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 0 12px 10px; max-width: 760px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+.archive-tabs button { min-width: 0; border: 0; background: transparent; color: #8a8a8f; display: flex; min-height: 54px; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border-radius: 10px; cursor: pointer; transition: background .18s var(--ease-out), color .18s var(--ease-out); }
+.archive-tabs button span { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; }
+.archive-tabs button strong { font-size: 12px; font-weight: 520; }
+.archive-tabs button.is-active { background: #f2f2f7; color: #007aff; }
+.archive-list { max-width: 760px; margin: 0 auto; }
+.archive-row { display: flex; min-width: 0; align-items: center; gap: 13px; padding: 13px 18px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background .16s var(--ease-out); }
+.archive-row:active { background: #f2f2f7; }
+.archive-thumb, .archive-placeholder { width: 46px; height: 62px; flex: 0 0 46px; border-radius: 7px; object-fit: cover; background: #f2f2f7; }
+.archive-placeholder { display: grid; place-items: center; color: #8a8a8f; font-size: 18px; font-weight: 700; }
+.archive-row-copy { min-width: 0; flex: 1; }
+.archive-row-copy h2 { overflow: hidden; margin: 0; color: #111111; font-size: 16px; font-weight: 620; text-overflow: ellipsis; white-space: nowrap; }
+.archive-row-copy p { overflow: hidden; margin: 4px 0 0; color: #77777d; font-size: 13px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+.archive-empty { padding: 80px 24px; text-align: center; color: #6b6b70; }
+.archive-empty p { margin: 0; font-size: 16px; font-weight: 600; color: #333338; }
+.archive-empty span { display: block; margin-top: 6px; font-size: 14px; }
+.archive-add { position: fixed; right: max(20px, calc((100vw - 760px) / 2 + 18px)); bottom: calc(22px + env(safe-area-inset-bottom)); z-index: 20; width: 56px; height: 56px; border-radius: 999px; background: #007aff; color: white; box-shadow: 0 6px 18px rgba(0, 122, 255, .25); }
+.archive-series-copy { display: flex; flex-direction: column; gap: 7px; }
+.season-strip, .season-editor > div { display: flex; flex-wrap: wrap; gap: 4px; }
+.season-strip button, .season-editor button { border: 0; background: transparent; color: #8a8a8f; padding: 0; font-size: 12px; line-height: 1; cursor: pointer; }
+.season-strip button.watched, .season-editor button.watched { color: #007aff; }
+.archive-dialog { width: min(100% - 24px, 520px); max-height: min(720px, calc(100dvh - 28px)); overflow-y: auto; border-radius: 20px; padding: 22px; }
+.archive-dialog [data-slot="dialog-title"] { font-size: 20px; }
+.archive-dialog [data-slot="dialog-description"] { color: #77777d; }
+.archive-search-mode, .archive-form { display: grid; gap: 16px; margin-top: 8px; }
+.archive-search-box { display: flex; align-items: center; gap: 9px; border: 1px solid var(--border); background: #f2f2f7; border-radius: 12px; padding: 0 12px; }
+.archive-search-box input { border: 0; background: transparent; box-shadow: none; }
+.archive-search-box input:focus { box-shadow: none; }
+.archive-results { display: grid; max-height: 380px; overflow-y: auto; border-top: 1px solid var(--border); }
+.archive-result { display: flex; min-width: 0; align-items: center; gap: 12px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--border); background: transparent; text-align: left; cursor: pointer; }
+.archive-result .archive-thumb, .archive-result .archive-placeholder { width: 38px; height: 52px; flex-basis: 38px; }
+.archive-result span { min-width: 0; display: grid; gap: 3px; }
+.archive-result strong, .archive-result small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.archive-result strong { font-size: 14px; font-weight: 650; }
+.archive-result small { color: #77777d; font-size: 12px; }
+.archive-field { display: grid; gap: 7px; color: #55555b; font-size: 13px; font-weight: 600; }
+.archive-field input { height: 42px; border-radius: 10px; }
+.archive-dialog-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 3px; }
+.archive-delete { margin-left: auto; color: #ff3b30; }
+.archive-error { margin: 0; color: #d92d20; font-size: 13px; }
+.archive-state { margin: 20px 0; color: #77777d; font-size: 14px; text-align: center; }
+.season-editor { display: grid; gap: 8px; color: #55555b; font-size: 13px; font-weight: 600; }
+.season-editor button { padding: 7px 8px; border: 1px solid var(--border); border-radius: 8px; color: #77777d; }
+.season-editor button.watched { border-color: #b7d9ff; background: #eaf3ff; color: #0066d6; }
+@media (min-width: 768px) { .archive-app { border-left: 1px solid #f2f2f7; border-right: 1px solid #f2f2f7; } }
+.archive-year-control { display: flex; align-items: center; gap: 2px; }
+.archive-year-control button { width: 28px; height: 28px; border: 0; border-radius: 999px; background: #f2f2f7; color: #007aff; font-size: 20px; line-height: 1; cursor: pointer; }

@@ -1,22 +1,25 @@
-<!-- OWNER: Build (with the user) · READERS: every agent · READ THIS FIRST -->
-# {{PROJECT_NAME}}
+# ARCHIVE
 
-**One-liner:** {{what it is, in one sentence}}
+**One-liner:** A private single-user archive for books, movies, TV series, and gallery visits.
 
 ## Goal
-{{the outcome the user actually wants}}
+Keep a simple, durable record of what was read, watched, and visited, organized by year.
 
 ## Target users
-{{who it's for}}
+One person who wants a lightweight personal archive without ratings, reviews, social features, or dashboards.
 
 ## Status
-- Stage: {{idea | building | live}}
-- Live URL: {{url or —}}
-- Repo: {{repo or —}}
+- Stage: building
+- Live URL: —
+- Repo: —
 
 ## What exists today
-<!-- Kept current by the Build agent after each build -->
-{{high-level list of built features}}
+- iPhone-first archive screen with year filtering and per-category counts.
+- Persistent browser storage for books, movies, series, and gallery visits.
+- Search-first add flows for books, movies, and series with manual entry fallback.
+- Server-only Kakao and TMDB search actions with metadata enrichment.
+- Editable and deletable records, plus direct persistent TV season toggles.
+- Installable web app metadata and safe-area-aware mobile layout.
 
 ## Constraints / must-nots
-{{anything every agent must respect — brand rules, no-gos, tech limits}}
+Simple personal archive only. No ratings, reviews, notes, social features, stats, tags, recommendations, or dashboard treatment. Search credentials stay server-side.
