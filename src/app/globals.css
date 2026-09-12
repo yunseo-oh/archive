@@ -83,7 +83,7 @@
   button, input, select { font: inherit; }
 }
 
-.archive-app { min-height: 100dvh; background: var(--background); color: var(--foreground); padding: env(safe-area-inset-top) 0; }
+.archive-app { min-height: 100dvh; width: 100%; background: var(--background); color: var(--foreground); padding: env(safe-area-inset-top) 0; }
 .archive-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 12px; max-width: 760px; margin: 0 auto; }
 .archive-header h1 { margin: 0; font-size: 18px; font-weight: 760; letter-spacing: .04em; }
 .archive-header select { border: 0; background: transparent; color: var(--foreground); font-size: 15px; font-weight: 650; padding: 7px 22px 7px 8px; text-align: right; }
@@ -92,7 +92,7 @@
 .archive-tabs button span { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; }
 .archive-tabs button strong { font-size: 12px; font-weight: 520; }
 .archive-tabs button.is-active { background: #f2f2f7; color: #007aff; }
-.archive-list { max-width: none; margin: 0; }
+.archive-list { max-width: none; width: 100%; margin: 0; }
 .archive-row { display: flex; min-width: 0; align-items: center; gap: 13px; padding: 13px 18px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background .16s var(--ease-out); }
 .archive-row:active { background: #f2f2f7; }
 .archive-thumb, .archive-placeholder { width: 46px; height: 62px; flex: 0 0 46px; border-radius: 7px; object-fit: cover; background: #f2f2f7; }
