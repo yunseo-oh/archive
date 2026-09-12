@@ -144,6 +144,6 @@
 .archive-tabs button span { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; }
 .archive-tabs button strong { font-size: 13px; font-weight: 520; }
 .archive-series-network { margin-top: 0 !important; }
-.archive-app { height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
+.archive-app { height: 100dvh; overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
 .archive-header, .archive-tabs { flex-shrink: 0; }
-.archive-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
+.archive-list { flex: 1 1 auto; min-height: 0; min-width: 0; width: 100%; align-self: stretch; overflow-y: auto; overscroll-behavior-y: contain; padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
