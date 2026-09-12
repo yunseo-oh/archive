@@ -5,7 +5,7 @@ import https from "node:https";
 type SearchResult = { id: string; title: string; subtitle?: string; imageUrl?: string; year?: string; meta?: Record<string, string> };
 type RequestSpec = { host: string; path: string; headers?: Record<string, string> };
 type TmdbItem = Record<string, any>;
-type TmdbPayload = { results?: TmdbItem[]; credits?: { crew?: TmdbItem[] }; seasons?: TmdbItem[]; [key: string]: any };
+type TmdbPayload = { results?: TmdbItem[]; credits?: { crew?: TmdbItem[] }; seasons?: TmdbItem[]; networks?: TmdbItem[]; [key: string]: any };
 
 function requestJson<T>(spec: RequestSpec): Promise<T> {
   return new Promise((resolve, reject) => {
@@ -44,22 +44,23 @@ export async function searchBooks(query: string): Promise<SearchResult[]> {
 
 export async function searchMovies(query: string): Promise<SearchResult[]> {
   const data = await tmdbRequest("movieSearch", query);
-  return (data.results ?? []).slice(0, 20).map((item: TmdbItem) => ({ id: String(item.id), title: String(item.title ?? ""), year: typeof item.release_date === "string" ? item.release_date.slice(0, 4) : "", imageUrl: typeof item.poster_path === "string" ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : undefined }));
+  return (data.results ?? []).slice(0, 20).map((item: TmdbItem) => ({ id: String(item.id), title: String(item.title ?? item.original_title ?? ""), year: typeof item.release_date === "string" ? item.release_date.slice(0, 4) : "", imageUrl: typeof item.poster_path === "string" ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : undefined }));
 }
 
 export async function getMovieDetails(id: string) {
   const data = await tmdbRequest("movieDetails", id);
   const directors = (data.credits?.crew ?? []).filter((person: TmdbItem) => person.job === "Director").map((person: TmdbItem) => String(person.name));
-  return { title: String(data.title ?? ""), releaseYear: typeof data.release_date === "string" ? data.release_date.slice(0, 4) : "", directorNames: directors.join(", "), posterUrl: typeof data.poster_path === "string" ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "", tmdbId: String(data.id ?? id) };
+  return { titleEnglish: String(data.title ?? data.original_title ?? ""), releaseYear: typeof data.release_date === "string" ? data.release_date.slice(0, 4) : "", directorNames: directors.join(", "), posterUrl: typeof data.poster_path === "string" ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "", tmdbId: String(data.id ?? id) };
 }
 
 export async function searchSeries(query: string): Promise<SearchResult[]> {
   const data = await tmdbRequest("seriesSearch", query);
-  return (data.results ?? []).slice(0, 20).map((item: TmdbItem) => ({ id: String(item.id), title: String(item.name ?? ""), year: typeof item.first_air_date === "string" ? item.first_air_date.slice(0, 4) : "", imageUrl: typeof item.poster_path === "string" ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : undefined }));
+  return (data.results ?? []).slice(0, 20).map((item: TmdbItem) => ({ id: String(item.id), title: String(item.name ?? item.original_name ?? ""), year: typeof item.first_air_date === "string" ? item.first_air_date.slice(0, 4) : "", imageUrl: typeof item.poster_path === "string" ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : undefined }));
 }
 
 export async function getSeriesDetails(id: string) {
   const data = await tmdbRequest("seriesDetails", id);
   const seasons = (data.seasons ?? []).filter((season: TmdbItem) => Number(season.season_number) > 0 && Number(season.episode_count) > 0).sort((a: TmdbItem, b: TmdbItem) => Number(a.season_number) - Number(b.season_number)).map((season: TmdbItem) => ({ seasonNumber: Number(season.season_number), watched: false }));
-  return { title: String(data.name ?? ""), posterUrl: typeof data.poster_path === "string" ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "", tmdbId: String(data.id ?? id), seasons };
+  const networkNames = (data.networks ?? []).map((network: TmdbItem) => String(network.name ?? "")).filter(Boolean);
+  return { titleEnglish: String(data.name ?? data.original_name ?? ""), posterUrl: typeof data.poster_path === "string" ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "", tmdbId: String(data.id ?? id), seasons, networkName: networkNames.join(", ") };
 }

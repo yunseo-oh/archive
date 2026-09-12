@@ -140,3 +140,7 @@
   body { background: var(--background); color: var(--foreground); margin: 0; min-width: 320px; }
   button, input, select { font: inherit; }
 }
+.archive-header h1 { margin: 0; font-size: 19px; font-weight: 760; letter-spacing: .04em; }
+.archive-tabs button span { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; }
+.archive-tabs button strong { font-size: 13px; font-weight: 520; }
+.archive-series-network { margin-top: 0 !important; }
