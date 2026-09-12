@@ -100,3 +100,9 @@
 @media (min-width: 768px) { .archive-app { border-left: 1px solid #f2f2f7; border-right: 1px solid #f2f2f7; } }
 .archive-year-control { display: flex; align-items: center; gap: 2px; }
 .archive-year-control button { width: 28px; height: 28px; border: 0; border-radius: 999px; background: #f2f2f7; color: #007aff; font-size: 20px; line-height: 1; cursor: pointer; }
+@layer base {
+  * { border-color: var(--border); outline-color: var(--ring); }
+  html { font-family: var(--font-sans); background: var(--background); }
+  body { background: var(--background); color: var(--foreground); margin: 0; min-width: 320px; }
+  button, input, select { font: inherit; }
+}
